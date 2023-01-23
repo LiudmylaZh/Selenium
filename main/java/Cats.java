@@ -31,7 +31,8 @@ public class Cats {
         @Test //отметка о тесте//
                 public void checkHeaderText() {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            WebElement header = driver.findElement(By.className("jumbotron-heading")); //для одного элемента//
+             //для одного элемента//
+            WebElement header = wait.until(ExpectedConditions.presenceOfElementLocated(By.className("jumbotron-heading")));
             wait.until(ExpectedConditions.visibilityOf(header)); // явное ожидание, пока не наступит событие.//
             String expectedHeaderText = "Cat memes";
             assertEquals("Element does not contains text:" + expectedHeaderText, expectedHeaderText,
@@ -58,6 +59,30 @@ public class Cats {
 
 
     }
+
+
+    @Test
+    public void checkButtonOfForthCat() {
+        WebElement buttonOfForthCat = driver.findElement(By.cssSelector("[class='col-sm-4']:nth-child(4) .card-body [class=\"btn btn-sm btn-outline-secondary\"]:nth-child(1)"));
+        String expectedNameOfButton = "View";
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOf(buttonOfForthCat));
+        assertEquals("Element does not contains text:" + expectedNameOfButton, expectedNameOfButton,
+                buttonOfForthCat.getText());
+    }
+
+    @Test
+    public void checkTimeOfSixthCat() {
+        WebElement timeOfSixthCat = driver.findElement(By.cssSelector("[class='col-sm-4']:nth-child(6) .card-body [class=\"text-muted\"]"));
+        String expectedTime = "9 mins";
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOf(timeOfSixthCat));
+        assertEquals("Element does not contains text:" + expectedTime, expectedTime,
+                timeOfSixthCat.getText());
+
+
+    }
+
         @After //выполнение после каждого теса//
     public void tearDown() {
         driver.quit();
